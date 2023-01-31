@@ -4,7 +4,7 @@ export default function Header() {
 
     return (
         <HeaderContainer>
-            VIEWMASTER
+            PHOTOMASTER
         </HeaderContainer>
     )
 }

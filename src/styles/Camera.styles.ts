@@ -1,8 +1,14 @@
 import styled from "styled-components";
 import { slideAnimation } from "./animations/SlideButton.animation";
+import { rotationAnimation } from "./animations/Rotation.animation";
 
 interface ThumbnailProps {
   background: string;
+  rotate: number | null;
+}
+
+interface ImageContainerProps {
+  duration: number;
 }
 
 const CameraContainer = styled.div`
@@ -25,7 +31,6 @@ const CameraBody = styled.div`
 `;
 
 const FilmDisk = styled.div`
-  position: relative;
   z-index: -100;
   height: 25vw;
   max-height: 216px;
@@ -37,11 +42,24 @@ const FilmDisk = styled.div`
   border-radius: 25vw 25vw 0 0;
 `;
 
+const ImageContainer = styled.div<ImageContainerProps>`
+  position: relative;
+  width: 100%;
+  height: 200%;
+
+  &.rotate {
+    animation: ${props => props.duration}s infinite ${rotationAnimation};
+  }
+`
+
 const Thumbnail = styled.div<ThumbnailProps>`
   position: absolute;
-  z-index: -10;
-  width: 25%;
-  height: 25%;
+  width: 15%;
+  height: 15%;
+  top: 50%;
+  left: 50%;
+  margin: -7.5%;
+  transform: ${props => props.rotate ? `rotate(${props.rotate}deg) translate(250%) ` : `translate(250%)`};
   background-image: url("./images/${(props) => props.background}");
   background-color: ${({ theme }) => theme.colors.black};
   background-blend-mode: multiply;
@@ -91,6 +109,7 @@ export {
   CameraContainer,
   CameraBody,
   FilmDisk,
+  ImageContainer,
   Thumbnail,
   SlideButton,
   EyeRest,
