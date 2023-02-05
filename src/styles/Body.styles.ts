@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
+interface ImageProps {
+  ref: HTMLInputElement;
+}
+
 const MainContainer = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   margin: 3em auto;
@@ -18,7 +23,7 @@ const MainContainer = styled.div`
 const TextColumn = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const Text = styled.p`
   margin: 0;
@@ -40,11 +45,20 @@ const Text = styled.p`
 
   @media only screen and (min-width: 1024px) {
     font-size: 2.5vw;
-}
+  }
 
-@media only screen and (min-width: 1280px) {
+  @media only screen and (min-width: 1280px) {
     font-size: 1.25vw;
-}
+  }
 `;
 
-export { MainContainer, TextColumn, Text };
+const ActiveImage = styled.img`
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+  border: 8px solid ${({ theme }) => theme.colors.white};
+  box-shadow: -2px 2px 8px rgba(37, 38, 39, 0.25);
+`;
+
+export { MainContainer, TextColumn, Text, ActiveImage };

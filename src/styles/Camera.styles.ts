@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { slideAnimation } from "./animations/SlideButton.animation";
-import { rotationAnimation } from "./animations/Rotation.animation";
 
 interface ThumbnailProps {
   background: string;
@@ -8,7 +7,11 @@ interface ThumbnailProps {
 }
 
 interface ImageContainerProps {
-  duration: number;
+  currentAngle: number;
+}
+
+interface LensProps {
+  image: string;
 }
 
 const CameraContainer = styled.div`
@@ -46,10 +49,8 @@ const ImageContainer = styled.div<ImageContainerProps>`
   position: relative;
   width: 100%;
   height: 200%;
-
-  &.rotate {
-    animation: ${props => props.duration}s infinite ${rotationAnimation};
-  }
+  transform: rotate(${props => props.currentAngle}deg);
+  transition: transform 1s linear;
 `
 
 const Thumbnail = styled.div<ThumbnailProps>`
@@ -87,6 +88,7 @@ const SlideButton = styled.div`
 
 const EyeRest = styled.div`
   position: absolute;
+  display: flex;
   top: 35%;
   width: 50%;
   height: 45%;
@@ -105,6 +107,21 @@ const EyeRest = styled.div`
   }
 `;
 
+const Lens = styled.div<LensProps>`
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  margin: auto;
+  background-color: ${({ theme }) => theme.colors.black};
+  cursor: pointer;
+
+  &:hover, &.focus {
+    background-image: url("./images/${props => props.image}");
+    background-size: cover;
+    background-blend-mode: overlay;
+  }
+`
+
 export {
   CameraContainer,
   CameraBody,
@@ -113,4 +130,5 @@ export {
   Thumbnail,
   SlideButton,
   EyeRest,
+  Lens
 };

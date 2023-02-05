@@ -1,30 +1,33 @@
 import { create } from "zustand";
-import { photos } from "../data/photos";
 
 interface State {
   sliderActive: boolean;
   setSliderActive: () => void;
-  activeSlide: number;
-  setActiveSlide: () => void;
+  angle: number;
+  setAngle: () => void;
+  photoVisible: boolean;
+  setPhotoVisible: () => void;
 }
 
 const useStore = create<State>()((set, get) => ({
   sliderActive: false,
   setSliderActive: () => {
     if (get().sliderActive === false) {
-        set(() => ({ sliderActive: true }));
+      set(() => ({ sliderActive: true }));
+      get().setAngle()
       setTimeout(() => {
         set(() => ({ sliderActive: false }));
       }, 1000)
     }
   },
-  activeSlide: 0,
-  setActiveSlide: () => {
-    if (get().activeSlide < photos.length - 1) {
-      set(() => ({activeSlide: get().activeSlide + 1}))
-    } else {
-      set(() => ({activeSlide: 0}))
-    }
+  angle: 0,
+  setAngle: () => {
+      set(() => ({angle: get().angle + 1}))
+      
+  },
+  photoVisible: false,
+  setPhotoVisible: () => {
+    set(() => ({photoVisible: !get().photoVisible}))
   }
 }));
 

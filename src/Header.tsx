@@ -1,4 +1,4 @@
-import { HeaderContainer } from "../styles/Header.styles";
+import { HeaderContainer } from "./styles/Header.styles";
 
 export default function Header() {
 
